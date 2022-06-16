@@ -32,6 +32,7 @@ export interface CommonVersionOptions {
   workspaceRoot: string;
   tagPrefix: string;
   changelogHeader: string;
+  skipCommit: boolean;
   commitMessage: string;
   projectName: string;
   skipProjectChangelog: boolean;
@@ -47,6 +48,7 @@ export function versionWorkspace({
   noVerify,
   projectName,
   tag,
+  skipCommit,
   ...options
 }: {
   skipRootChangelog: boolean;
@@ -62,6 +64,7 @@ export function versionWorkspace({
           dryRun,
           noVerify,
           projectName,
+          skipCommit,
           tag,
           ...options,
         })
@@ -94,6 +97,7 @@ export function versionWorkspace({
     }),
     concatMap(() =>
       commit({
+        skipCommit,
         dryRun,
         noVerify,
         commitMessage,
@@ -120,6 +124,7 @@ export function versionProject({
   noVerify,
   tagPrefix,
   projectName,
+  skipCommit,
   tag,
   ...options
 }: { projectRoot: string } & CommonVersionOptions) {
@@ -131,6 +136,7 @@ export function versionProject({
     newVersion,
     commitMessage,
     dryRun,
+    skipCommit,
     noVerify,
     tagPrefix,
     tag,
@@ -170,6 +176,7 @@ export function versionProject({
     ),
     concatMap(() =>
       commit({
+        skipCommit,
         dryRun,
         noVerify,
         commitMessage,

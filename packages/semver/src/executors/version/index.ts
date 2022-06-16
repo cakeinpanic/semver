@@ -48,6 +48,7 @@ export default async function version(
     preset,
     allowEmptyRelease,
     skipCommitTypes,
+    skipCommit
   } = _normalizeOptions(options);
   const workspaceRoot = context.root;
   const projectName = context.projectName as string;
@@ -130,6 +131,7 @@ export default async function version(
         skipProjectChangelog,
         commitMessage,
         dependencyUpdates,
+        skipCommit
       };
 
       const version$ = defer(() =>
@@ -227,6 +229,7 @@ function _normalizeOptions(options: VersionBuilderSchema) {
     changelogHeader: options.changelogHeader ?? defaultHeader,
     versionTagPrefix: options.tagPrefix ?? options.versionTagPrefix,
     commitMessageFormat: options.commitMessageFormat as string,
+    skipCommit: options.skipCommit || false,
     preset:
       options.preset === 'angular'
         ? 'angular'

@@ -28,6 +28,7 @@ describe(commit.name, () => {
       commit({
         dryRun: false,
         noVerify: false,
+        skipCommit: false,
         commitMessage: 'chore(release): 1.0.0',
         projectName: 'p',
       })
@@ -43,6 +44,22 @@ describe(commit.name, () => {
     commit({
       dryRun: true,
       noVerify: false,
+      skipCommit: false,
+      commitMessage: 'chore(release): 1.0.0',
+      projectName: 'p',
+    }).subscribe({
+      complete: () => {
+        expect(cp.exec).not.toBeCalled();
+        done();
+      },
+    });
+  });
+
+  it('should skip commit with --skipCommit', (done) => {
+    commit({
+      dryRun: false,
+      noVerify: false,
+      skipCommit: true,
       commitMessage: 'chore(release): 1.0.0',
       projectName: 'p',
     }).subscribe({
@@ -58,6 +75,7 @@ describe(commit.name, () => {
       commit({
         dryRun: false,
         noVerify: true,
+        skipCommit: false,
         commitMessage: 'chore(release): 1.0.0',
         projectName: 'p',
       })
